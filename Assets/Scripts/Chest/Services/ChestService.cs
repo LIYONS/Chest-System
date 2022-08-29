@@ -1,21 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using ChestSystem.Chest;
+using Singleton;
 
-namespace ChestSystem
+namespace ChestSystem.Services
 {
-    public class ChestService : MonoBehaviour
+    public class ChestService : MonoSingletonGeneric<ChestService>
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
+        [SerializeField] private ChestConfiguration chestConfiguration;
 
-        // Update is called once per frame
-        void Update()
+        private void SpawnChest(ChestType chestType)
         {
-        
+
         }
     }
 }
