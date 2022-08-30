@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d541d6e6e02ed4647ba96506951cb8b3, type: 3}
   m_Name: Legendary
   m_EditorClassIdentifier: 
-  unlockDuration: 0
-  minGems: 0
-  maxGems: 0
-  minCoins: 0
-  maxCoins: 0
+  unlockDuration: 40
+  minGems: 80
+  maxGems: 100
+  minCoins: 1000
+  maxCoins: 1200
