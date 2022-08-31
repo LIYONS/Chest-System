@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Rare
   m_EditorClassIdentifier: 
   unlockDuration: 10
+  chestName: RARE
   minGems: 20
   maxGems: 40
   minCoins: 300

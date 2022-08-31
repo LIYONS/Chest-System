@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using ChestSystem.Chest.MVC;
 using ChestSystem.Chest;
 
@@ -17,6 +18,8 @@ namespace ChestSystem.Services
         private void Start()
         {
             FreeSlot();
+            Button unlockBtn = unlockButton.GetComponent<Button>();
+            unlockBtn.onClick.AddListener(OnUnlockClicked);
         }
         public bool GetIsEmpty { get { return isEmpty; } }
 
@@ -46,6 +49,14 @@ namespace ChestSystem.Services
             isEmpty = true;
             emptyText.SetActive(true);
             unlockButton.SetActive(false);
+        }
+
+        public void OnUnlockClicked()
+        {
+            if(chestController!=null)
+            {
+                chestController.OnUnlockClicked();
+            }
         }
     }   
 }

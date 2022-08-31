@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Epic
   m_EditorClassIdentifier: 
   unlockDuration: 20
+  chestName: EPIC
   minGems: 45
   maxGems: 60
   minCoins: 600

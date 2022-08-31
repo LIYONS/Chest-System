@@ -19,14 +19,17 @@ namespace ChestSystem.UI
         [SerializeField] private TextMeshProUGUI popUpTitle;
         [SerializeField] private TextMeshProUGUI popUpDescription;
 
+        [Header("ChestUnlockPopup")]
+        [SerializeField] private GameObject chestPopupWindow;
+        [SerializeField] private TextMeshProUGUI chestPopupTitle;
+        [SerializeField] private TextMeshProUGUI gemAmountToUnlock;
+
         private void Start()
         {
             SetGemCount(gemInitialCount);
             SetCoinCount(coinInitialCount);
-            if (popUpWindow)
-            {
-                popUpWindow.SetActive(false);
-            }
+            popUpWindow.SetActive(false);
+            chestPopupWindow.SetActive(false);
         }
         public void SetGemCount(int amount)
         {
@@ -71,6 +74,13 @@ namespace ChestSystem.UI
             {
                 popUpWindow.SetActive(false);
             }
+        }
+
+        public void ChestUnlockPopup(string title,string gemAmount)
+        {
+            chestPopupTitle.text = title;
+            gemAmountToUnlock.text = gemAmount;
+            chestPopupWindow.SetActive(true);
         }
     }
 }

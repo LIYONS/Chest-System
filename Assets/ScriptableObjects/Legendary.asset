@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Legendary
   m_EditorClassIdentifier: 
   unlockDuration: 40
+  chestName: LEGENDARY
   minGems: 80
   maxGems: 100
   minCoins: 1000

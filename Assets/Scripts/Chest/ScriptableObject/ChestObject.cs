@@ -6,6 +6,7 @@ namespace ChestSystem.Chest
     public class ChestObject : ScriptableObject
     {
         public float unlockDuration;
+        public string chestName;
         public int minGems;
         public int maxGems;
         public int minCoins;
