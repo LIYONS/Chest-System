@@ -1,19 +1,21 @@
 using UnityEngine;
 using UnityEngine.UI;
 using ChestSystem.Chest.MVC;
-using ChestSystem.Chest;
+using ChestSystem.UI;
 
-namespace ChestSystem.Services
+namespace ChestSystem.Chest
 {
     public class ChestSlotController : MonoBehaviour
     {
 
         [SerializeField] private GameObject emptyText;
         [SerializeField] private GameObject unlockButton;
+        [SerializeField] private string newChestPopupTitle;
         private bool isEmpty;
         private ChestModel chestModel;
         private ChestController chestController;
         private ChestView chestView;
+        private int chestSlotID;
 
         private void Start()
         {
@@ -31,9 +33,18 @@ namespace ChestSystem.Services
             chestModel = new(config.chestObject);
             chestController = new(chestModel);
             chestView = Instantiate(chestPrefab, transform).GetComponent<ChestView>();
+            ShowNewChestPopup(config);
             SetReferences();
         }
 
+        public void ShowNewChestPopup(ChestConfig config)
+        {
+            UiManager uiManager = UiService.Instance.GetUiManager;
+            if (uiManager)
+            {
+                uiManager.PopUp(newChestPopupTitle, $"You have acquired a new{config.chestObject.name} Chest\n GemRange\t {config.chestObject.minGems} - {config.chestObject.maxGems} \n CoinRange {config.chestObject.minCoins} - {config.chestObject.maxCoins} ");
+            }
+        }
         private void SetReferences()
         {
             chestModel.SetChestController(chestController);
@@ -50,7 +61,7 @@ namespace ChestSystem.Services
             emptyText.SetActive(true);
             unlockButton.SetActive(false);
         }
-
+        public int SetChestSlotID { set => chestSlotID = value; }
         public void OnUnlockClicked()
         {
             if(chestController!=null)

@@ -1,10 +1,9 @@
-using ChestSystem.Chest;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using ChestSystem.UI;
 
-namespace ChestSystem.Services
+namespace ChestSystem.Chest
 {
     public class ChestSlotsController : MonoBehaviour
     {
@@ -12,7 +11,7 @@ namespace ChestSystem.Services
         [SerializeField] private List<Chests> chests;
         [SerializeField] private GameObject chestSlotPrefab;
         [SerializeField] private float timeToSkipFor1Gem;
-        private List<ChestSlotController> chestSlotControllers = new();
+        private List<ChestSlot> chestSlots = new();
 
         [Header("Popup")]
         [SerializeField] private string slotsFullMsgtitle;
@@ -29,20 +28,21 @@ namespace ChestSystem.Services
             uiManager = UiService.Instance.GetUiManager;
             for (int i = 0; i < numberOfSlots; i++)
             {
-                chestSlotControllers.Add(Instantiate(chestSlotPrefab, transform).GetComponent<ChestSlotController>());
+                ChestSlot chestSlot=new(i,Instantiate(chestSlotPrefab, transform).GetComponent<ChestSlotController>());
+                chestSlots.Add(chestSlot);
+                chestSlot.chestSlotController.SetChestSlotID = i;
             }
         }
         public void SpawnChest(ChestConfig config)
         {
-            for (int i = 0; i < chestSlotControllers.Count; i++)
+            for (int i = 0; i < chestSlots.Count; i++)
             {
-                if (chestSlotControllers[i].GetIsEmpty)
+                if (chestSlots[i].chestSlotController.GetIsEmpty)
                 {
                     GameObject chestPrefab = chests.Find(item => item.chestType == config.chestType).chestPrefab;
                     if (chestPrefab)
                     {
-                        chestSlotControllers[i].SpawnChest(chestPrefab, config);
-                        ShowNewChestPopup(config);
+                        chestSlots[i].chestSlotController.SpawnChest(chestPrefab, config);
                     }
                     return;
                 }
@@ -50,14 +50,6 @@ namespace ChestSystem.Services
             if(uiManager)
             {
                 uiManager.PopUp(slotsFullMsgtitle, slotsFullMsgDescription);
-            }
-        }
-
-        public void ShowNewChestPopup(ChestConfig config)
-        {
-            if(uiManager)
-            {
-                uiManager.PopUp(newChestTitle, $"You have acquired a new{config.chestObject.name} Chest\n GemRange\t {config.chestObject.minGems} - {config.chestObject.maxGems} \n CoinRange {config.chestObject.minCoins} - {config.chestObject.maxCoins} " );
             }
         }
         public bool GetIsUnlockingChest { get { return isUnlockingChest; } set { isUnlockingChest = value; } }
@@ -68,6 +60,18 @@ namespace ChestSystem.Services
         {
             public ChestType chestType;
             public GameObject chestPrefab;
+        }
+
+    }
+    public struct ChestSlot
+    {
+        public int chestSlotID;
+        public ChestSlotController chestSlotController;
+
+        public ChestSlot(int id, ChestSlotController controller)
+        {
+            this.chestSlotID = id;
+            this.chestSlotController = controller;
         }
     }
 }

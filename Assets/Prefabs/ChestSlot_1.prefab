@@ -351,6 +351,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   emptyText: {fileID: 5289847320006010671}
   unlockButton: {fileID: 5289847318867602314}
+  newChestPopupTitle: CONGRATULATIONS
 --- !u!1 &5289847320006010671
 GameObject:
   m_ObjectHideFlags: 0

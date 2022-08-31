@@ -1,6 +1,6 @@
 using UnityEngine;
 using Singleton;
-using ChestSystem.Services;
+using ChestSystem.Chest;
 
 namespace ChestSystem.UI
 {
