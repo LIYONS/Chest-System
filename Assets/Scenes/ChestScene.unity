@@ -1391,8 +1391,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1498,7 +1498,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1200, y: 500}
+  m_SizeDelta: {x: 1200, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &359140865
 MonoBehaviour:
@@ -1551,7 +1551,7 @@ GameObject:
   - component: {fileID: 423628708}
   - component: {fileID: 423628710}
   m_Layer: 5
-  m_Name: ChestSlot-1
+  m_Name: ChestSlot_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1573,7 +1573,7 @@ RectTransform:
   - {fileID: 1364134008}
   - {fileID: 162865084}
   m_Father: {fileID: 1039717962}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -1600,7 +1600,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 837490109fe8e8744aac446796b8b217, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 78944ebb70239d94689ad345f76125df, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1630,6 +1630,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2adfd2746d931f4a80e46a9df575e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptyText: {fileID: 189151258}
+  unlockButton: {fileID: 162865083}
 --- !u!1 &440590013
 GameObject:
   m_ObjectHideFlags: 0
@@ -2428,8 +2430,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f343e40896ed24142ad44d107ffb1c96, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2745,10 +2747,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 423628707}
   - {fileID: 1164898145}
-  - {fileID: 1750041622}
+  - {fileID: 423628707}
   - {fileID: 1756723755}
+  - {fileID: 1750041622}
   m_Father: {fileID: 1282728967}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2771,10 +2773,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfSlots: 4
   chestSlotControllers:
-  - {fileID: 423628710}
   - {fileID: 1164898148}
-  - {fileID: 1750041625}
+  - {fileID: 423628710}
   - {fileID: 1756723758}
+  - {fileID: 1750041625}
   chests:
   - chestType: 0
     chestPrefab: {fileID: 5546788243649139713, guid: f474974c5b9809e41983e27166e77257, type: 3}
@@ -2784,6 +2786,11 @@ MonoBehaviour:
     chestPrefab: {fileID: 360023624411382915, guid: c494a2c12a507854291f23a3c89386bb, type: 3}
   - chestType: 2
     chestPrefab: {fileID: 6313935494834309373, guid: 7f47c0ca6c4139f45950c179bdc6c222, type: 3}
+  uiManager: {fileID: 1413800622}
+  slotsFullMsgtitle: Oops!
+  slotsFullMsgDescription: Slots are full.
+  newChestTitle: 
+  chestPopupWindow: {fileID: 0}
 --- !u!1 &1056462474
 GameObject:
   m_ObjectHideFlags: 0
@@ -3067,7 +3074,7 @@ GameObject:
   - component: {fileID: 1164898146}
   - component: {fileID: 1164898148}
   m_Layer: 5
-  m_Name: ChestSlot-2
+  m_Name: ChestSlot_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3089,7 +3096,7 @@ RectTransform:
   - {fileID: 1435373259}
   - {fileID: 143710829}
   m_Father: {fileID: 1039717962}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3116,7 +3123,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 837490109fe8e8744aac446796b8b217, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 78944ebb70239d94689ad345f76125df, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3146,6 +3153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2adfd2746d931f4a80e46a9df575e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptyText: {fileID: 1152751305}
+  unlockButton: {fileID: 143710828}
 --- !u!1 &1168376740
 GameObject:
   m_ObjectHideFlags: 0
@@ -4122,7 +4131,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1000, y: 250}
+  m_SizeDelta: {x: 1000, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1515923376
 MonoBehaviour:
@@ -4541,7 +4550,7 @@ GameObject:
   - component: {fileID: 1750041623}
   - component: {fileID: 1750041625}
   m_Layer: 5
-  m_Name: ChestSlot-3
+  m_Name: ChestSlot_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4563,7 +4572,7 @@ RectTransform:
   - {fileID: 542795940}
   - {fileID: 1225211555}
   m_Father: {fileID: 1039717962}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -4590,7 +4599,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 837490109fe8e8744aac446796b8b217, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 78944ebb70239d94689ad345f76125df, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4620,6 +4629,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2adfd2746d931f4a80e46a9df575e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptyText: {fileID: 738159378}
+  unlockButton: {fileID: 1225211554}
 --- !u!1 &1756723754
 GameObject:
   m_ObjectHideFlags: 0
@@ -4633,7 +4644,7 @@ GameObject:
   - component: {fileID: 1756723756}
   - component: {fileID: 1756723758}
   m_Layer: 5
-  m_Name: ChestSlot-4
+  m_Name: ChestSlot_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4655,7 +4666,7 @@ RectTransform:
   - {fileID: 509931623}
   - {fileID: 336280920}
   m_Father: {fileID: 1039717962}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -4682,7 +4693,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 837490109fe8e8744aac446796b8b217, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 78944ebb70239d94689ad345f76125df, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4712,6 +4723,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2adfd2746d931f4a80e46a9df575e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptyText: {fileID: 1823541768}
+  unlockButton: {fileID: 336280919}
 --- !u!1 &1771863602
 GameObject:
   m_ObjectHideFlags: 0

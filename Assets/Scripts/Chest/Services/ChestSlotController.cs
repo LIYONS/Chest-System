@@ -1,11 +1,14 @@
-using ChestSystem.Chest;
 using UnityEngine;
 using ChestSystem.Chest.MVC;
+using ChestSystem.Chest;
 
 namespace ChestSystem.Services
 {
     public class ChestSlotController : MonoBehaviour
     {
+
+        [SerializeField] private GameObject emptyText;
+        [SerializeField] private GameObject unlockButton;
         private bool isEmpty;
         private ChestModel chestModel;
         private ChestController chestController;
@@ -13,13 +16,15 @@ namespace ChestSystem.Services
 
         private void Start()
         {
-            isEmpty = true;
+            FreeSlot();
         }
         public bool GetIsEmpty { get { return isEmpty; } }
 
         public void SpawnChest(GameObject chestPrefab, ChestConfig config)
         {
             isEmpty = false;
+            emptyText.SetActive(false);
+            unlockButton.SetActive(true);
             chestModel = new(config.chestObject);
             chestController = new(chestModel);
             chestView = Instantiate(chestPrefab, transform).GetComponent<ChestView>();
@@ -37,8 +42,10 @@ namespace ChestSystem.Services
             if (chestView)
             {
                 Destroy(chestView.gameObject);
-                isEmpty = true;
             }
+            isEmpty = true;
+            emptyText.SetActive(true);
+            unlockButton.SetActive(false);
         }
     }   
 }

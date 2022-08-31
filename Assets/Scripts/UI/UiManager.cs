@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-using Singleton;
 using ChestSystem.Services;
 
 namespace ChestSystem.UI
@@ -15,7 +14,7 @@ namespace ChestSystem.UI
         private int gemCount;
         private int coinCount;
 
-        [Header("PopUpWindow")]
+        [Header("PopupWindow")]
         [SerializeField] private GameObject popUpWindow;
         [SerializeField] private TextMeshProUGUI popUpTitle;
         [SerializeField] private TextMeshProUGUI popUpDescription;
