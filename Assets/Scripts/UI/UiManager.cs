@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 using ChestSystem.Services;
 
 namespace ChestSystem.UI
@@ -23,15 +24,17 @@ namespace ChestSystem.UI
         [SerializeField] private GameObject chestPopupWindow;
         [SerializeField] private TextMeshProUGUI chestPopupTitle;
         [SerializeField] private TextMeshProUGUI gemAmountToUnlock;
+        [SerializeField] private GameObject unlockImmediateBtn;
+        [SerializeField] private GameObject startTimerButton;
 
         private void Start()
         {
-            SetGemCount(gemInitialCount);
-            SetCoinCount(coinInitialCount);
+            AddGemCount(gemInitialCount);
+            AddCoinCount(coinInitialCount);
             popUpWindow.SetActive(false);
             chestPopupWindow.SetActive(false);
         }
-        public void SetGemCount(int amount)
+        public void AddGemCount(int amount)
         {
             gemCount += amount;
             if (gemCountText)
@@ -40,7 +43,7 @@ namespace ChestSystem.UI
             }
         }
 
-        public void SetCoinCount(int amount)
+        public void AddCoinCount(int amount)
         {
             coinCount += amount;
             if (coinCountText)
@@ -82,5 +85,12 @@ namespace ChestSystem.UI
             gemAmountToUnlock.text = gemAmount;
             chestPopupWindow.SetActive(true);
         }
+        public GameObject GetStartTimerButton { get { return startTimerButton; } }
+
+        public GameObject GetUnlockImmediateBtn { get { return unlockImmediateBtn; } }
+
+        public GameObject GetChestPopupWindow { get { return chestPopupWindow; } }
+
+        public int GetGemCount { get { return gemCount; } }
     }
 }

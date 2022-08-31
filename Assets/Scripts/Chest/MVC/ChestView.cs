@@ -10,13 +10,10 @@ namespace ChestSystem.Chest.MVC
         [SerializeField] private TextMeshProUGUI timerText;
         [SerializeField] private string unlockPopupTitle;
         private ChestController chestController;
-        
 
         private void Start()
         {
             chestController.Start();
-            
-            
         }
         private void Update()
         {

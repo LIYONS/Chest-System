@@ -21,6 +21,8 @@ namespace ChestSystem.Services
 
         [Header("NewChestPopup")]
         [SerializeField] private string newChestTitle;
+        private bool isUnlockingChest = false;
+
 
         private void Start()
         {
@@ -58,6 +60,7 @@ namespace ChestSystem.Services
                 uiManager.PopUp(newChestTitle, $"You have acquired a new{config.chestObject.name} Chest\n GemRange\t {config.chestObject.minGems} - {config.chestObject.maxGems} \n CoinRange {config.chestObject.minCoins} - {config.chestObject.maxCoins} " );
             }
         }
+        public bool GetIsUnlockingChest { get { return isUnlockingChest; } set { isUnlockingChest = value; } }
 
         public float GetTimeToSkipFor1Gem { get { return timeToSkipFor1Gem; } }
         [System.Serializable]
