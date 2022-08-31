@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Common
   m_EditorClassIdentifier: 
   unlockDuration: 5
+  chestName: COMMON
   minGems: 10
   maxGems: 20
   minCoins: 100
