@@ -35,6 +35,7 @@ namespace ChestSystem.Services
         public void OnChestUnlocked(ChestUnlockedMsg msgObject)
         {
             Message msg = new(msgObject.title, msgObject.description);
+            popUpService.OnChestUnlocked();
             popUpService.ShowMessage(msg);
             uiService.AddGemCount(msgObject.gems);
             uiService.AddCoinCount(msgObject.coins);

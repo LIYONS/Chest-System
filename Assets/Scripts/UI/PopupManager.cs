@@ -10,6 +10,8 @@ namespace ChestSystem.UI
         [SerializeField] private GameObject msgPopUpWindow;
         [SerializeField] private TextMeshProUGUI msgPopUpTitle;
         [SerializeField] private TextMeshProUGUI msgPopUpDescription;
+        [SerializeField] private string slotBusyTitle="Oops!";
+        [SerializeField] private string slotBusyDescription="Something is already being unlocked.Try later";
 
         [Header("ChestUnlockPopup")]
         [SerializeField] private GameObject chestPopupWindow;
@@ -20,7 +22,7 @@ namespace ChestSystem.UI
         [SerializeField] private string closeButtonTxt="Close";
         [SerializeField] private string startTimerText = "Start Timer";
         private int currentChestSlotBeingUnlocked=0;
-       // private bool isUnlocking=false;
+        private bool isUnlocking=false;
 
         private void Start()
         {
@@ -48,9 +50,16 @@ namespace ChestSystem.UI
         public void OnChestPopupButtonClicked()
         {
             chestPopupWindow.SetActive(false);
+            isUnlocking = true;
         }
         public void ChestUnlockPopup(ChestUnlockMsg msgObject)
         {
+            if(isUnlocking && currentChestSlotBeingUnlocked!=msgObject.chestSlotId)
+            {
+                Message msg = new(slotBusyTitle, slotBusyDescription);
+                ShowMessage(msg);
+                return;
+            }
             chestPopupTitle.text = msgObject.msgTitle;
             gemAmountToUnlock.text = msgObject.gemAmount.ToString();
             unlockImmediateBtn.GetComponent<Button>().onClick.AddListener(msgObject.UnlockImmediateAction); 
@@ -64,7 +73,6 @@ namespace ChestSystem.UI
                 startTimerButton.GetComponentInChildren<TextMeshProUGUI>().text = startTimerText;
                 startTimerButton.GetComponent<Button>().onClick.AddListener(msgObject.startUnlockAction);
             }
-            Debug.Log(msgObject.chestSlotId);
             chestPopupWindow.SetActive(true);
         }
         public GameObject GetStartTimerButton { get { return startTimerButton; } }
@@ -72,6 +80,12 @@ namespace ChestSystem.UI
         public GameObject GetUnlockImmediateBtn { get { return unlockImmediateBtn; } }
 
         public GameObject GetChestPopupWindow { get { return chestPopupWindow; } }
+
+        public void OnChestUnlocked()
+        {
+            isUnlocking = false;
+            currentChestSlotBeingUnlocked = 0;
+        }
     }
 }
 public struct ChestUnlockMsg

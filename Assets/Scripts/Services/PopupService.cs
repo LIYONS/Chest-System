@@ -18,5 +18,9 @@ namespace ChestSystem.Services
             popupManager.ShowMessage(message);
         }
 
+        public void OnChestUnlocked()
+        {
+            popupManager.OnChestUnlocked();
+        }
     }
 }

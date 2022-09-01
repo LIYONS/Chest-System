@@ -10,6 +10,8 @@ namespace ChestSystem.Chest.MVC
         [SerializeField] private string unlockPopupTitle;
         [SerializeField] private string unlockedPopupTitle = "Congratulations";
         [SerializeField] private Button unlockButton;
+
+        [SerializeField] private string spawnPopupTitle = "Congratulations";
         private ChestController chestController;
 
         private void Start()
@@ -36,5 +38,7 @@ namespace ChestSystem.Chest.MVC
         }
 
         public string GetChestUnlockedTitle { get { return unlockedPopupTitle; } }
+
+        public string GetSpawnPopupTitle { get { return spawnPopupTitle; } }
     }
 }

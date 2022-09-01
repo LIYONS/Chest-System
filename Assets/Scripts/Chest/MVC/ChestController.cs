@@ -22,6 +22,7 @@ namespace ChestSystem.Chest.MVC
         
         public void Start()
         {
+            ShowSpawnPopup();
             chestSlotController = chestView.GetComponentInParent<ChestSlotController>();
             chestSlotsController = ChestService.Instance.GetChestSlotsController;
             unlockDuration = chestModel.GetChestObject.unlockDuration;
@@ -38,6 +39,12 @@ namespace ChestSystem.Chest.MVC
             {
                 CheckUnlock();
             }
+        }
+
+        private void ShowSpawnPopup()
+        {
+            Message msg = new(chestView.GetSpawnPopupTitle, $"You have acquired a new {chestModel.GetChestObject.name} chest.\n Coin Range {chestModel.GetChestObject.minCoins} - {chestModel.GetChestObject.maxCoins} \n Gems Range {chestModel.GetChestObject.minGems} - {chestModel.GetChestObject.maxGems} ");
+            ChestService.Instance.ShowMessage(msg);
         }
         public void UnlockClicked(string title)
         {
