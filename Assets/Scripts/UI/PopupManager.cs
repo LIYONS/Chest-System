@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using ChestSystem.Services;
 
 namespace ChestSystem.UI
 {
@@ -46,10 +47,12 @@ namespace ChestSystem.UI
             {
                 msgPopUpWindow.SetActive(false);
             }
+            PopupService.Instance.SetIsShowing = false;
         }
         public void OnCloseclicked()
         {
             chestPopupWindow.SetActive(false);
+            PopupService.Instance.SetIsShowing = false;
         }
         public void OnChestPopupButtonClicked()
         {

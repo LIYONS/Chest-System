@@ -3,6 +3,7 @@ using ChestSystem.Chest;
 using Singleton;
 using ChestSystem.Chest.SO;
 using ChestSystem.UI;
+using System;
 
 namespace ChestSystem.Services
 {
@@ -13,6 +14,7 @@ namespace ChestSystem.Services
 
         private PopupService popUpService;
         private UiService uiService;
+
 
         private void Start()
         {
@@ -30,20 +32,20 @@ namespace ChestSystem.Services
         }
         public void ShowNewUnlockPopup(ChestUnlockMsg msgObject)
         {
-            popUpService.ShowNewUnlockPopup(msgObject);
+            popUpService.QueueNewUnlockPopup(msgObject);
         }
         public void OnChestUnlocked(ChestUnlockedMsg msgObject)
         {
             Message msg = new(msgObject.title, msgObject.description);
             popUpService.OnChestUnlocked();
-            popUpService.ShowMessage(msg);
+            ShowMessage(msg);
             uiService.AddGemCount(msgObject.gems);
             uiService.AddCoinCount(msgObject.coins);
 
         }
         public void ShowMessage(Message message)
         {
-            popUpService.ShowMessage(message);
+            popUpService.QueueMessage(message);
         }
         public ChestSlotsController GetChestSlotsController { get { return chestSlotsController; } }
 
