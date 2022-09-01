@@ -1,14 +1,20 @@
-using UnityEngine;
 using ChestSystem.Chest;
-using Singleton;
+using ChestSystem.Chest.SO;
+using ChestSystem.Services;
+using UnityEngine;
 
-namespace ChestSystem.Services
+namespace ChestSystem
 {
-    public class ChestService : MonoSingletonGeneric<ChestService>
+    public class ChestSpawner : MonoBehaviour
     {
         [SerializeField] private ChestConfiguration chestConfiguration;
-        [SerializeField] private ChestSlotsController chestSlotsController;
+        [SerializeField] private float timeToskipFor1Gem;
+        private ChestSlotsController chestSlotsController;
 
+        private void Start()
+        {
+            chestSlotsController = ChestService.Instance.GetChestSlotsController;
+        }
         public void SpawnChest(ChestType chestType)
         {
             ChestConfig config = chestConfiguration.ChestList.Find(item => item.chestType == chestType);
@@ -27,5 +33,6 @@ namespace ChestSystem.Services
             }
 
         }
+        public float GetTimeToSkipFor1Gem { get { return timeToskipFor1Gem; } }
     }
 }

@@ -1,6 +1,5 @@
 using UnityEngine;
-using UnityEngine.UI;
-using ChestSystem.UI;
+using ChestSystem.Chest.SO;
 using ChestSystem.Services;
 using System;
 
@@ -10,24 +9,29 @@ namespace ChestSystem.Chest.MVC
     {
         private ChestModel chestModel;
         private ChestView chestView;
-        private UiManager uiManager;
         private ChestSlotsController chestSlotsController;
+        private ChestSlotController chestSlotController;
         private float unlockDuration;
         private int gemToUnlock;
         private float unlockTimer;
         private bool startCountDown=false;
         private bool isUnlocked = false;
 
+        public UnityEngine.Events.UnityAction StartUnlockingAction;
+        public UnityEngine.Events.UnityAction UnlockImmediateAction;
         
         public void Start()
         {
-            uiManager = UiService.Instance.GetUiManager;
-            chestSlotsController = UiService.Instance.GetSlotsController;
+            chestSlotController = chestView.GetComponentInParent<ChestSlotController>();
+            chestSlotsController = ChestService.Instance.GetChestSlotsController;
             unlockDuration = chestModel.GetChestObject.unlockDuration;
             unlockTimer = unlockDuration;
             chestView.SetTimerText(TimeToString(unlockDuration));
             gemToUnlock = (int) (unlockDuration / chestSlotsController.GetTimeToSkipFor1Gem);
+            StartUnlockingAction = StartUnlockingChest;
+            UnlockImmediateAction = UnlockImmediate;
         }
+
         public void Update()
         {
             if(startCountDown && !isUnlocked)
@@ -35,57 +39,28 @@ namespace ChestSystem.Chest.MVC
                 CheckUnlock();
             }
         }
-        public void OnUnlockClicked()
+        public void UnlockClicked(string title)
         {
-            if(chestSlotsController.GetIsUnlockingChest && !startCountDown)
+            if(chestSlotController)
             {
-                uiManager.PopUp("Oops", "Something is being Unlocked.Try later");
-                return;
+                ChestUnlockMsg msgObject = new(title,gemToUnlock,StartUnlockingAction,UnlockImmediateAction);
+                chestSlotController.UnlockClicked(msgObject);
             }
-            uiManager.ChestUnlockPopup(chestView.GetUnlockTitle,  gemToUnlock.ToString());
-            uiManager.GetUnlockImmediateBtn.GetComponent<Button>().onClick.AddListener(OnUnlockImmediate);
-            if(startCountDown)
-            {
-                uiManager.GetStartTimerButton.SetActive(false);
-                return;
-            }
-            uiManager.GetStartTimerButton.GetComponent<Button>().onClick.AddListener(OnStartTimer);
         }
 
-        public void OnStartTimer()
+        public void UnlockImmediate()
+        {
+            if(!isUnlocked)
+            {
+                Unlock();
+            }
+        }
+
+
+        public void StartUnlockingChest()
         {
             startCountDown = true;
-            chestSlotsController.GetIsUnlockingChest = true;
-            uiManager.GetChestPopupWindow.SetActive(false);
         }
-
-        public void OnUnlockImmediate()
-        {
-            if((uiManager.GetGemCount-gemToUnlock)<0)
-            {
-                uiManager.PopUp("Oops", "Not enough gems.Try to earn some more");
-                return;
-            }
-            uiManager.AddGemCount(-gemToUnlock);
-            Unlock();
-            uiManager.GetChestPopupWindow.SetActive(false);
-        }
-        public void Unlock()
-        {
-            if (!isUnlocked)
-            {
-                isUnlocked = true;
-                ChestObject chestObject = chestModel.GetChestObject;
-                chestSlotsController.GetIsUnlockingChest = false;
-                int gemAquired = UnityEngine.Random.Range(chestObject.minGems, chestObject.maxGems);
-                int coinAquired = UnityEngine.Random.Range(chestObject.minCoins, chestObject.maxCoins);
-                uiManager.AddCoinCount(coinAquired);
-                uiManager.AddGemCount(gemAquired);
-                uiManager.PopUp("Congratulations", $"You have acquired \n {gemAquired} -Gems \n {coinAquired} -Coins");
-                chestView.GetComponentInParent<ChestSlotController>().FreeSlot();
-            }
-        }
-
         private void CheckUnlock()
         {
             unlockTimer -= Time.deltaTime;
@@ -93,7 +68,7 @@ namespace ChestSystem.Chest.MVC
             {
                 unlockDuration--;
                 chestView.SetTimerText(TimeToString(unlockDuration));
-                if ((int)unlockDuration % (int)UiService.Instance.GetSlotsController.GetTimeToSkipFor1Gem == 0f)
+                if ((int)unlockDuration % (int)ChestService.Instance.GetTimeToSkipFor1Gem == 0f)
                 {
                     gemToUnlock--;
                 }
@@ -104,6 +79,21 @@ namespace ChestSystem.Chest.MVC
             }
         }
 
+        
+        public void Unlock()
+        {
+            if (!isUnlocked)
+            {
+                isUnlocked = true;
+                ChestObject chestObject = chestModel.GetChestObject;
+                int gemAquired = UnityEngine.Random.Range(chestObject.minGems, chestObject.maxGems);
+                int coinAquired = UnityEngine.Random.Range(chestObject.minCoins, chestObject.maxCoins);
+                string description = $"You have acquired\n {gemAquired} gems \n {coinAquired} coins";
+                ChestUnlockedMsg msg = new(chestView.GetChestUnlockedTitle, description, gemAquired, coinAquired);
+                ChestService.Instance.OnChestUnlocked(msg); 
+                chestSlotController.FreeSlot();
+            }
+        }
         private string TimeToString(float value)
         {
             TimeSpan time = TimeSpan.FromSeconds(value);
@@ -118,5 +108,21 @@ namespace ChestSystem.Chest.MVC
         {
             chestView = _view;
         }
+    }
+    
+}
+public struct ChestUnlockedMsg
+{
+    public string title;
+    public string description;
+    public int coins;
+    public int gems;
+
+    public ChestUnlockedMsg(string title, string description, int coins, int gems)
+    {
+        this.title = title;
+        this.description = description;
+        this.coins = coins;
+        this.gems = gems;
     }
 }

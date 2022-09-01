@@ -351,7 +351,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -407,7 +407,7 @@ GameObject:
   - component: {fileID: 130392032}
   - component: {fileID: 130392031}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: BtnTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -532,6 +532,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 130392029}
   m_CullTransparentMesh: 1
+--- !u!1 &157331929
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 157331930}
+  - component: {fileID: 157331931}
+  m_Layer: 0
+  m_Name: PopupService
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &157331930
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157331929}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &157331931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157331929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57075c3c3a9c1b84991f9c274d1d7374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popupManager: {fileID: 1134272102}
 --- !u!1 &264510051
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,7 +589,7 @@ GameObject:
   - component: {fileID: 264510054}
   - component: {fileID: 264510053}
   m_Layer: 5
-  m_Name: ChestPop-up Window
+  m_Name: ChestPop-up Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -565,8 +610,8 @@ RectTransform:
   - {fileID: 1508059707}
   - {fileID: 1887542587}
   - {fileID: 1455099782}
-  m_Father: {fileID: 1413800621}
-  m_RootOrder: 2
+  m_Father: {fileID: 1134272101}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -834,7 +879,7 @@ GameObject:
   - component: {fileID: 359140866}
   - component: {fileID: 359140865}
   m_Layer: 5
-  m_Name: 'Main Pop-up Window '
+  m_Name: MsgPopupPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -855,8 +900,8 @@ RectTransform:
   - {fileID: 1056462475}
   - {fileID: 1515923375}
   - {fileID: 1591150507}
-  m_Father: {fileID: 1413800621}
-  m_RootOrder: 3
+  m_Father: {fileID: 1134272101}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1306,7 +1351,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiManager: {fileID: 1413800622}
-  chestSlotsController: {fileID: 1048658886}
 --- !u!4 &765658845
 Transform:
   m_ObjectHideFlags: 0
@@ -1781,19 +1825,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfSlots: 5
   chests:
-  - chestType: 0
-    chestPrefab: {fileID: 5546788243649139713, guid: f474974c5b9809e41983e27166e77257, type: 3}
-  - chestType: 3
-    chestPrefab: {fileID: 4198387792162118126, guid: 0332d585371bfc74797ab509640facff, type: 3}
-  - chestType: 1
-    chestPrefab: {fileID: 360023624411382915, guid: c494a2c12a507854291f23a3c89386bb, type: 3}
   - chestType: 2
     chestPrefab: {fileID: 6313935494834309373, guid: 7f47c0ca6c4139f45950c179bdc6c222, type: 3}
   chestSlotPrefab: {fileID: 5289847320003337862, guid: 55352c041135ecc4b9b74ad8cb914c31, type: 3}
   timeToSkipFor1Gem: 10
-  slotsFullMsgtitle: Oops!
-  slotsFullMsgDescription: Slots are full.Try unlocking a few.
-  newChestTitle: CONGRATULATIONS
 --- !u!114 &1048658887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1884,7 +1919,7 @@ GameObject:
   - component: {fileID: 1056462477}
   - component: {fileID: 1056462476}
   m_Layer: 5
-  m_Name: TitleText
+  m_Name: TitleTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2007,6 +2042,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1056462474}
   m_CullTransparentMesh: 1
+--- !u!1 &1134272100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1134272101}
+  - component: {fileID: 1134272102}
+  m_Layer: 5
+  m_Name: Popup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1134272101
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134272100}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 264510052}
+  - {fileID: 359140864}
+  m_Father: {fileID: 1413800621}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1134272102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134272100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca3895ad69c08744d9dc445ec11f790a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  msgPopUpWindow: {fileID: 359140863}
+  msgPopUpTitle: {fileID: 1056462476}
+  msgPopUpDescription: {fileID: 1515923376}
+  chestPopupWindow: {fileID: 264510051}
+  chestPopupTitle: {fileID: 1508059708}
+  gemAmountToUnlock: {fileID: 1549567632}
+  unlockImmediateBtn: {fileID: 1887542586}
+  startTimerButton: {fileID: 1455099781}
+  closeButtonTxt: Close
+  startTimerText: Start Timer
 --- !u!1 &1168376740
 GameObject:
   m_ObjectHideFlags: 0
@@ -2019,7 +2115,7 @@ GameObject:
   - component: {fileID: 1168376743}
   - component: {fileID: 1168376742}
   m_Layer: 5
-  m_Name: Gems
+  m_Name: GemsImg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2230,6 +2326,7 @@ GameObject:
   - component: {fileID: 1282728967}
   - component: {fileID: 1282728969}
   - component: {fileID: 1282728968}
+  - component: {fileID: 1282728970}
   m_Layer: 5
   m_Name: ChestPanel
   m_TagString: Untagged
@@ -2298,6 +2395,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1282728966}
   m_CullTransparentMesh: 1
+--- !u!114 &1282728970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282728966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879fb537530361e4e859c60a4f304465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chestConfiguration: {fileID: 11400000, guid: 63153289e30cd9b448b7fa828a69c49e, type: 2}
+  timeToskipFor1Gem: 10
 --- !u!1 &1413800616
 GameObject:
   m_ObjectHideFlags: 0
@@ -2312,7 +2423,7 @@ GameObject:
   - component: {fileID: 1413800618}
   - component: {fileID: 1413800622}
   m_Layer: 5
-  m_Name: ChestSystemCanvas
+  m_Name: UI-Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2393,9 +2504,8 @@ RectTransform:
   m_Children:
   - {fileID: 485255224}
   - {fileID: 1282728967}
-  - {fileID: 264510052}
-  - {fileID: 359140864}
   - {fileID: 1704955871}
+  - {fileID: 1134272101}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2420,14 +2530,6 @@ MonoBehaviour:
   coinCountText: {fileID: 39495720}
   gemInitialCount: 100
   coinInitialCount: 1000
-  popUpWindow: {fileID: 359140863}
-  popUpTitle: {fileID: 1056462476}
-  popUpDescription: {fileID: 1515923376}
-  chestPopupWindow: {fileID: 264510051}
-  chestPopupTitle: {fileID: 1508059708}
-  gemAmountToUnlock: {fileID: 1549567632}
-  unlockImmediateBtn: {fileID: 1887542586}
-  startTimerButton: {fileID: 1455099781}
 --- !u!1 &1455099781
 GameObject:
   m_ObjectHideFlags: 0
@@ -2441,7 +2543,7 @@ GameObject:
   - component: {fileID: 1455099784}
   - component: {fileID: 1455099783}
   m_Layer: 5
-  m_Name: StartTimer
+  m_Name: StartTimerBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2511,7 +2613,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1455099784}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1134272102}
+        m_TargetAssemblyTypeName: ChestSystem.UI.PopupManager, Assembly-CSharp
+        m_MethodName: OnChestPopupButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1455099784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2697,7 +2811,7 @@ GameObject:
   - component: {fileID: 1515923377}
   - component: {fileID: 1515923376}
   m_Layer: 5
-  m_Name: Description
+  m_Name: DescriptionTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2968,7 +3082,7 @@ GameObject:
   - component: {fileID: 1591150509}
   - component: {fileID: 1591150508}
   m_Layer: 5
-  m_Name: Close
+  m_Name: CloseBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3039,8 +3153,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1413800622}
-        m_TargetAssemblyTypeName: ChestSystem.UI.UiManager, Assembly-CSharp
+      - m_Target: {fileID: 1134272102}
+        m_TargetAssemblyTypeName: ChestSystem.UI.PopupManager, Assembly-CSharp
         m_MethodName: OnPopupCloseClicked
         m_Mode: 1
         m_Arguments:
@@ -3120,7 +3234,7 @@ RectTransform:
   - {fileID: 1771863603}
   - {fileID: 470946733}
   m_Father: {fileID: 1413800621}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -3194,7 +3308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80d6caa8e7ec24c408699f469fb65fad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chestConfiguration: {fileID: 11400000, guid: 63153289e30cd9b448b7fa828a69c49e, type: 2}
+  chestSpawner: {fileID: 1282728970}
   chestSlotsController: {fileID: 1048658886}
 --- !u!4 &1880294158
 Transform:
@@ -3224,7 +3338,7 @@ GameObject:
   - component: {fileID: 1887542589}
   - component: {fileID: 1887542588}
   m_Layer: 5
-  m_Name: UnlockImmediate
+  m_Name: UnlockNowBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3295,7 +3409,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1887542589}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1134272102}
+        m_TargetAssemblyTypeName: ChestSystem.UI.PopupManager, Assembly-CSharp
+        m_MethodName: OnChestPopupButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1887542589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3427,7 +3553,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535

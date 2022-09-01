@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
-using System;
-using ChestSystem.UI;
+using UnityEngine.UI;
 
 namespace ChestSystem.Chest.MVC
 {
@@ -9,11 +8,14 @@ namespace ChestSystem.Chest.MVC
     {
         [SerializeField] private TextMeshProUGUI timerText;
         [SerializeField] private string unlockPopupTitle;
+        [SerializeField] private string unlockedPopupTitle = "Congratulations";
+        [SerializeField] private Button unlockButton;
         private ChestController chestController;
 
         private void Start()
         {
             chestController.Start();
+            unlockButton.onClick.AddListener(OnUnlockClicked);
         }
         private void Update()
         {
@@ -23,10 +25,16 @@ namespace ChestSystem.Chest.MVC
         {
             timerText.text = text;
         }
+
+        public void OnUnlockClicked()
+        {
+            chestController.UnlockClicked(unlockPopupTitle);
+        }
         public void SetChestController(ChestController _controller)
         {
             chestController = _controller;
         }
-        public string GetUnlockTitle { get { return unlockPopupTitle; } }
+
+        public string GetChestUnlockedTitle { get { return unlockedPopupTitle; } }
     }
 }

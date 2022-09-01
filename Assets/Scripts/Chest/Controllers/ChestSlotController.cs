@@ -1,7 +1,7 @@
 using UnityEngine;
-using UnityEngine.UI;
+using ChestSystem.Services;
 using ChestSystem.Chest.MVC;
-using ChestSystem.UI;
+using ChestSystem.Chest.SO;
 
 namespace ChestSystem.Chest
 {
@@ -9,7 +9,6 @@ namespace ChestSystem.Chest
     {
 
         [SerializeField] private GameObject emptyText;
-        [SerializeField] private GameObject unlockButton;
         [SerializeField] private string newChestPopupTitle;
         private bool isEmpty;
         private ChestModel chestModel;
@@ -20,8 +19,6 @@ namespace ChestSystem.Chest
         private void Start()
         {
             FreeSlot();
-            Button unlockBtn = unlockButton.GetComponent<Button>();
-            unlockBtn.onClick.AddListener(OnUnlockClicked);
         }
         public bool GetIsEmpty { get { return isEmpty; } }
 
@@ -29,21 +26,15 @@ namespace ChestSystem.Chest
         {
             isEmpty = false;
             emptyText.SetActive(false);
-            unlockButton.SetActive(true);
             chestModel = new(config.chestObject);
             chestController = new(chestModel);
             chestView = Instantiate(chestPrefab, transform).GetComponent<ChestView>();
-            ShowNewChestPopup(config);
             SetReferences();
         }
-
-        public void ShowNewChestPopup(ChestConfig config)
+        public void UnlockClicked(ChestUnlockMsg msgObject)
         {
-            UiManager uiManager = UiService.Instance.GetUiManager;
-            if (uiManager)
-            {
-                uiManager.PopUp(newChestPopupTitle, $"You have acquired a new{config.chestObject.name} Chest\n GemRange\t {config.chestObject.minGems} - {config.chestObject.maxGems} \n CoinRange {config.chestObject.minCoins} - {config.chestObject.maxCoins} ");
-            }
+            msgObject.chestSlotId = chestSlotID;
+            ChestService.Instance.ShowNewUnlockPopup(msgObject);
         }
         private void SetReferences()
         {
@@ -59,15 +50,7 @@ namespace ChestSystem.Chest
             }
             isEmpty = true;
             emptyText.SetActive(true);
-            unlockButton.SetActive(false);
         }
         public int SetChestSlotID { set => chestSlotID = value; }
-        public void OnUnlockClicked()
-        {
-            if(chestController!=null)
-            {
-                chestController.OnUnlockClicked();
-            }
-        }
     }   
 }
