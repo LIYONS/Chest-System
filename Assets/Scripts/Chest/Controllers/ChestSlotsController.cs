@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ChestSystem.Chest.SO;
+using ChestSystem.Services;
 
 namespace ChestSystem.Chest
 {
@@ -10,6 +11,8 @@ namespace ChestSystem.Chest
         [SerializeField] private List<Chests> chests;
         [SerializeField] private GameObject chestSlotPrefab;
         [SerializeField] private float timeToSkipFor1Gem;
+        [SerializeField] private string slotsFullMsgTitle ="Oops!";
+        [SerializeField] private string slotsFulllMsgDescription ="Chest Slots are full.Try Unlocking a few";
         private List<ChestSlot> chestSlots = new();
 
 
@@ -36,7 +39,10 @@ namespace ChestSystem.Chest
                     }
                     return;
                 }
+
             }
+            Message message = new(slotsFullMsgTitle,slotsFulllMsgDescription);
+            ChestService.Instance.ShowMessage(message);
         }
 
         public float GetTimeToSkipFor1Gem { get { return timeToSkipFor1Gem; } }

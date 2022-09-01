@@ -47,9 +47,12 @@ namespace ChestSystem.UI
                 msgPopUpWindow.SetActive(false);
             }
         }
-        public void OnChestPopupButtonClicked()
+        public void OnCloseclicked()
         {
             chestPopupWindow.SetActive(false);
+        }
+        public void OnChestPopupButtonClicked()
+        {
             isUnlocking = true;
         }
         public void ChestUnlockPopup(ChestUnlockMsg msgObject)
@@ -63,7 +66,7 @@ namespace ChestSystem.UI
             chestPopupTitle.text = msgObject.msgTitle;
             gemAmountToUnlock.text = msgObject.gemAmount.ToString();
             unlockImmediateBtn.GetComponent<Button>().onClick.AddListener(msgObject.UnlockImmediateAction); 
-            if (currentChestSlotBeingUnlocked==msgObject.chestSlotId)
+            if (currentChestSlotBeingUnlocked==msgObject.chestSlotId && isUnlocking)
             {
                 startTimerButton.GetComponentInChildren<TextMeshProUGUI>().text = closeButtonTxt;
             }
