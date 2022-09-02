@@ -5,5 +5,5 @@ public enum MsgPopupType
     NotEnoughGems,
     NotEnoughCoins,
     GemStorageFull,
-    CoinStorageFull
+    CoinStorageFull,
 }

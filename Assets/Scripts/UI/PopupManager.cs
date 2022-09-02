@@ -18,10 +18,10 @@ namespace ChestSystem.UI
         [SerializeField] private GameObject chestPopupWindow;
         [SerializeField] private TextMeshProUGUI chestPopupTitle;
         [SerializeField] private TextMeshProUGUI gemAmountToUnlock;
-        [SerializeField] private GameObject unlockImmediateBtn;
-        [SerializeField] private GameObject startTimerButton;
-        [SerializeField] private string closeButtonTxt="Close";
-        [SerializeField] private string startTimerText = "Start Timer";
+        [SerializeField] private Button btn2;
+        [SerializeField] private Button btn1;
+
+        private ChestUnlockMsg msgObject;
 
         private void Start()
         {
@@ -62,25 +62,30 @@ namespace ChestSystem.UI
             chestPopupWindow.SetActive(false);
             PopupService.Instance.SetIsShowing = false;
         }
+
+        public void OnBtn1Clicked()
+        {
+            if (msgObject.btn1Action!=null)
+            {
+                msgObject.btn1Action();
+            }
+
+        }
+        public void OnBtn2Clicked()
+        {
+            if (msgObject.btn2Action != null)
+            {
+                msgObject.btn2Action();
+            }
+        }
         public void ChestUnlockPopup(ChestUnlockMsg msgObject)
         {
+            this.msgObject = msgObject;
             chestPopupTitle.text = msgObject.msgTitle;
             gemAmountToUnlock.text = msgObject.gemAmount.ToString();
-            unlockImmediateBtn.GetComponent<Button>().onClick.AddListener(msgObject.UnlockImmediateAction); 
-            if (PopupService.Instance.CurrentUnlockingChestID==msgObject.chestSlotId)
-            {
-                startTimerButton.GetComponentInChildren<TextMeshProUGUI>().text = closeButtonTxt;
-            }
-            else
-            {
-                startTimerButton.GetComponentInChildren<TextMeshProUGUI>().text = startTimerText;
-                startTimerButton.GetComponent<Button>().onClick.AddListener(msgObject.startUnlockAction);
-            }
+            btn1.GetComponentInChildren<TextMeshProUGUI>().text = msgObject.btn1Txt;
             chestPopupWindow.SetActive(true);
         }
-        public GameObject GetStartTimerButton { get { return startTimerButton; } }
-
-        public GameObject GetUnlockImmediateBtn { get { return unlockImmediateBtn; } }
 
         public GameObject GetChestPopupWindow { get { return chestPopupWindow; } }
     }

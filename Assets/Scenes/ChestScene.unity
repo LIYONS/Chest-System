@@ -741,8 +741,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1508059707}
-  - {fileID: 1887542587}
   - {fileID: 1455099782}
+  - {fileID: 1887542587}
   - {fileID: 176691621}
   m_Father: {fileID: 1134272101}
   m_RootOrder: 0
@@ -1963,6 +1963,10 @@ MonoBehaviour:
     chestPrefab: {fileID: 6313935494834309373, guid: 7f47c0ca6c4139f45950c179bdc6c222, type: 3}
   chestSlotPrefab: {fileID: 5289847320003337862, guid: 55352c041135ecc4b9b74ad8cb914c31, type: 3}
   timeToSkipFor1Gem: 10
+  unlockQueueSize: 2
+  closeBtnTxt: Close
+  startTimerTxt: Start Timer
+  queueText: Queue Opening
 --- !u!114 &1048658887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2249,13 +2253,14 @@ MonoBehaviour:
   - popupType: 5
     description: Coin Storage Full
     title: Oops!
+  - popupType: 6
+    description: This item is already queued for unlocking
+    title: Oops!
   chestPopupWindow: {fileID: 264510051}
   chestPopupTitle: {fileID: 1508059708}
   gemAmountToUnlock: {fileID: 1549567632}
-  unlockImmediateBtn: {fileID: 1887542586}
-  startTimerButton: {fileID: 1455099781}
-  closeButtonTxt: Close
-  startTimerText: Start Timer
+  btn2: {fileID: 1887542588}
+  btn1: {fileID: 1455099783}
 --- !u!1 &1168376740
 GameObject:
   m_ObjectHideFlags: 0
@@ -2698,7 +2703,7 @@ GameObject:
   - component: {fileID: 1455099784}
   - component: {fileID: 1455099783}
   m_Layer: 5
-  m_Name: StartTimerBtn
+  m_Name: Btn1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2718,7 +2723,7 @@ RectTransform:
   m_Children:
   - {fileID: 77296722}
   m_Father: {fileID: 264510052}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -2783,7 +2788,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1134272102}
         m_TargetAssemblyTypeName: ChestSystem.UI.PopupManager, Assembly-CSharp
-        m_MethodName: OnChestPopupButtonClicked
+        m_MethodName: OnBtn1Clicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3505,7 +3510,7 @@ GameObject:
   - component: {fileID: 1887542589}
   - component: {fileID: 1887542588}
   m_Layer: 5
-  m_Name: UnlockNowBtn
+  m_Name: Btn2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3526,7 +3531,7 @@ RectTransform:
   - {fileID: 1935979184}
   - {fileID: 1168376741}
   m_Father: {fileID: 264510052}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -3591,7 +3596,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1134272102}
         m_TargetAssemblyTypeName: ChestSystem.UI.PopupManager, Assembly-CSharp
-        m_MethodName: OnChestPopupButtonClicked
+        m_MethodName: OnBtn2Clicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

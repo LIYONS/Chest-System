@@ -17,8 +17,8 @@ namespace ChestSystem.Chest.MVC
         private bool startCountDown=false;
         private bool isUnlocked = false;
 
-        public UnityEngine.Events.UnityAction StartUnlockingAction;
-        public UnityEngine.Events.UnityAction UnlockImmediateAction;
+        public Action StartUnlockingAction;
+        public Action UnlockImmediateAction;
         
         public void Start()
         {
@@ -50,7 +50,7 @@ namespace ChestSystem.Chest.MVC
         {
             if(chestSlotController)
             {
-                ChestUnlockMsg msgObject = new(title,gemToUnlock,StartUnlockingAction,UnlockImmediateAction);
+                ChestUnlockMsg msgObject = new(title,gemToUnlock," ",StartUnlockingAction,UnlockImmediateAction);
                 chestSlotController.OnUnlockClicked(msgObject);
             }
         }
@@ -59,8 +59,8 @@ namespace ChestSystem.Chest.MVC
         {
             if(!isUnlocked)
             {
-                chestSlotController.UnlockingStatus = true;
-                bool result=ChestService.Instance.ReduceGemCount(gemToUnlock);
+                OnStartUnlocking();
+                bool result= ChestService.Instance.ReduceGemCount(gemToUnlock);
                 if(result)
                 {
                     Unlock();
@@ -71,10 +71,19 @@ namespace ChestSystem.Chest.MVC
         public void StartUnlockingChest()
         {
             startCountDown = true;
-            chestSlotController.UnlockingStatus = true;
+            OnStartUnlocking();
             ChestService.Instance.CurrentUnlockingChestId = chestSlotController.ChestSlotID;
         }
 
+        private void OnStartUnlocking()
+        {
+            chestSlotController.UnlockingStatus = true;
+            if (chestSlotController.IsQueued)
+            {
+                chestSlotController.IsQueued = false;
+                ChestService.Instance.GetChestSlotsController.RemoveFromUnlockQueue(chestSlotController.ChestSlotID);
+            }
+        }
         private void CheckUnlock()
         {
             unlockTimer -= Time.deltaTime;

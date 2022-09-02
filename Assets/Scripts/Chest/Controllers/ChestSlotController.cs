@@ -1,7 +1,6 @@
 using UnityEngine;
 using ChestSystem.Services;
 using ChestSystem.Chest.MVC;
-using ChestSystem.Chest.SO;
 
 namespace ChestSystem.Chest
 {
@@ -14,8 +13,6 @@ namespace ChestSystem.Chest
         private ChestModel chestModel;
         private ChestController chestController;
         private ChestView chestView;
-        private int chestSlotID;
-        private bool isBeingUnlocked;
 
         private void Start()
         {
@@ -26,6 +23,7 @@ namespace ChestSystem.Chest
         public void SpawnChest(GameObject chestPrefab, ChestConfig config)
         {
             isEmpty = false;
+            IsQueued = false;
             emptyText.SetActive(false);
             chestModel = new(config.chestObject);
             chestController = new(chestModel);
@@ -35,7 +33,7 @@ namespace ChestSystem.Chest
 
         public void OnUnlockClicked(ChestUnlockMsg msgObject)
         {
-            msgObject.chestSlotId = chestSlotID;
+            msgObject.chestSlotId = ChestSlotID;
             ChestService.Instance.GetChestSlotsController.ShowUnlock(msgObject);
         }
 
@@ -58,16 +56,10 @@ namespace ChestSystem.Chest
             UnlockingStatus = false;
         }
 
-        public int ChestSlotID 
-        {
-            get { return chestSlotID; }
-            set => chestSlotID = value; 
-        }
+        public int ChestSlotID { get; set; }
 
-        public bool UnlockingStatus
-        {
-            get { return isBeingUnlocked; }
-            set { isBeingUnlocked = value; }
-        }
+        public bool UnlockingStatus { get; set; }
+
+        public bool IsQueued { get; set; }
     }   
 }
