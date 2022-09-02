@@ -1,7 +1,6 @@
 using UnityEngine;
 using ChestSystem.Services;
 using ChestSystem.Chest.MVC;
-using ChestSystem.Chest.SO;
 
 namespace ChestSystem.Chest
 {
@@ -14,7 +13,6 @@ namespace ChestSystem.Chest
         private ChestModel chestModel;
         private ChestController chestController;
         private ChestView chestView;
-        private int chestSlotID;
 
         private void Start()
         {
@@ -25,32 +23,43 @@ namespace ChestSystem.Chest
         public void SpawnChest(GameObject chestPrefab, ChestConfig config)
         {
             isEmpty = false;
+            IsQueued = false;
             emptyText.SetActive(false);
             chestModel = new(config.chestObject);
             chestController = new(chestModel);
             chestView = Instantiate(chestPrefab, transform).GetComponent<ChestView>();
             SetReferences();
         }
-        public void UnlockClicked(ChestUnlockMsg msgObject)
+
+        public void OnUnlockClicked(ChestUnlockMsg msgObject)
         {
-            msgObject.chestSlotId = chestSlotID;
-            ChestService.Instance.ShowNewUnlockPopup(msgObject);
+            msgObject.chestSlotId = ChestSlotID;
+            ChestService.Instance.GetChestSlotsController.ShowUnlock(msgObject);
         }
+
         private void SetReferences()
         {
             chestModel.SetChestController(chestController);
             chestController.SetChestView(chestView);
             chestView.SetChestController(chestController);
         }
+
         public void FreeSlot()
         {
+            
             if (chestView)
             {
                 Destroy(chestView.gameObject);
             }
             isEmpty = true;
             emptyText.SetActive(true);
+            UnlockingStatus = false;
         }
-        public int SetChestSlotID { set => chestSlotID = value; }
+
+        public int ChestSlotID { get; set; }
+
+        public bool UnlockingStatus { get; set; }
+
+        public bool IsQueued { get; set; }
     }   
 }

@@ -8,19 +8,4 @@ namespace ChestSystem.Chest.SO
     {
         public List<ChestConfig> ChestList;
     }
-    [System.Serializable]
-    public struct ChestConfig
-    {
-        public ChestType chestType;
-        public ChestObject chestObject;
-    }
-
-    public enum ChestType
-    {
-        Common,
-        Epic,
-        Legendary,
-        Rare
-    }
-
 }

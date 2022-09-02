@@ -1,9 +1,8 @@
-using ChestSystem.Chest;
 using ChestSystem.Chest.SO;
 using ChestSystem.Services;
 using UnityEngine;
 
-namespace ChestSystem
+namespace ChestSystem.Chest
 {
     public class ChestSpawner : MonoBehaviour
     {
@@ -24,7 +23,7 @@ namespace ChestSystem
             }
         }
 
-        public void SpawnRandomChest()
+        public void SpawnChest()
         {
             int index = Random.Range(0, chestConfiguration.ChestList.Count);
             if (chestSlotsController)
