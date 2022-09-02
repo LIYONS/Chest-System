@@ -1961,6 +1961,12 @@ MonoBehaviour:
   chests:
   - chestType: 2
     chestPrefab: {fileID: 6313935494834309373, guid: 7f47c0ca6c4139f45950c179bdc6c222, type: 3}
+  - chestType: 1
+    chestPrefab: {fileID: 239297731627614992, guid: a14454be8e009ab41aa317a5a8bb2f30, type: 3}
+  - chestType: 3
+    chestPrefab: {fileID: 7741973127928499970, guid: aa19dc3e6c8cf8e4bad6746b43367d2c, type: 3}
+  - chestType: 0
+    chestPrefab: {fileID: 219297777464161622, guid: c2925cf0c23dbdf4299fdbca9784ca8a, type: 3}
   chestSlotPrefab: {fileID: 5289847320003337862, guid: 55352c041135ecc4b9b74ad8cb914c31, type: 3}
   timeToSkipFor1Gem: 10
   unlockQueueSize: 2

@@ -68,15 +68,10 @@ namespace ChestSystem.Chest
                     Action action = msgObject.btn1Action;
                     msgObject.btn1Action = new Action(() => QueueUnlockingAction(msgObject.chestSlotId,action));
                 }
-                else if(chestService.CurrentUnlockingChestId == msgObject.chestSlotId || IsInQueue(msgObject.chestSlotId))
+                else if(chestService.CurrentUnlockingChestId == msgObject.chestSlotId || IsInQueue(msgObject.chestSlotId) || unlockList.Count >= unlockQueueSize)
                 {
                     msgObject.btn1Txt = closeBtnTxt;
                     msgObject.btn1Action = null;
-                }
-                else if(chestService.CurrentUnlockingChestId != msgObject.chestSlotId && unlockList.Count >= unlockQueueSize)
-                {
-                    chestService.ShowMessage(MsgPopupType.SlotsBusy);
-                    return;
                 }
             }
             else
@@ -87,7 +82,6 @@ namespace ChestSystem.Chest
         }
         public void QueueUnlockingAction(int slotId,Action action)
         {
-            Debug.Log("Q");
             unlockList.Add(new Tuple<int,Action>(slotId,action));
             ChestSlotController slotController = chestSlots.Find(i => i.chestSlotID == slotId).chestSlotController;
             if(slotController)

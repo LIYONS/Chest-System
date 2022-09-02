@@ -15,3 +15,9 @@ MonoBehaviour:
   ChestList:
   - chestType: 2
     chestObject: {fileID: 11400000, guid: 346e4793f1583eb4d9f7ef82f496ae86, type: 2}
+  - chestType: 1
+    chestObject: {fileID: 11400000, guid: 616c92ca332394448bcbb99b2a58b835, type: 2}
+  - chestType: 3
+    chestObject: {fileID: 11400000, guid: e8dae4c85d33480499517fd9f1e20b54, type: 2}
+  - chestType: 0
+    chestObject: {fileID: 11400000, guid: 76bdb8d88b0d4104389cddb8b5a79c64, type: 2}
