@@ -30,7 +30,7 @@ namespace ChestSystem.Chest.MVC
 
         public void OnUnlockClicked()
         {
-            chestController.UnlockClicked(unlockPopupTitle);
+            chestController.OnUnlockClicked(unlockPopupTitle);
         }
         public void SetChestController(ChestController _controller)
         {

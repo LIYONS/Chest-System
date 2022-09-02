@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
 using ChestSystem.Services;
 
 namespace ChestSystem.UI
@@ -11,8 +12,7 @@ namespace ChestSystem.UI
         [SerializeField] private GameObject msgPopUpWindow;
         [SerializeField] private TextMeshProUGUI msgPopUpTitle;
         [SerializeField] private TextMeshProUGUI msgPopUpDescription;
-        [SerializeField] private string slotBusyTitle="Oops!";
-        [SerializeField] private string slotBusyDescription="Something is already being unlocked.Try later";
+        [SerializeField] private List<MsgPopup> msgPopups;
 
         [Header("ChestUnlockPopup")]
         [SerializeField] private GameObject chestPopupWindow;
@@ -22,8 +22,6 @@ namespace ChestSystem.UI
         [SerializeField] private GameObject startTimerButton;
         [SerializeField] private string closeButtonTxt="Close";
         [SerializeField] private string startTimerText = "Start Timer";
-        private int currentChestSlotBeingUnlocked=0;
-        private bool isUnlocking=false;
 
         private void Start()
         {
@@ -40,8 +38,18 @@ namespace ChestSystem.UI
                 msgPopUpWindow.SetActive(true);
             }
         }
+        public void ShowMessage(MsgPopupType msgType)
+        {
+            MsgPopup message = msgPopups.Find(i => i.popupType == msgType);
+            if(message.title!=null && msgPopUpWindow)
+            {
+                msgPopUpTitle.text = message.title;
+                msgPopUpDescription.text = message.description;
+                msgPopUpWindow.SetActive(true);
+            }
+        }
 
-        public void OnPopupCloseClicked()
+        public void OnMsgPopupCloseClicked()
         {
             if (msgPopUpWindow)
             {
@@ -54,28 +62,17 @@ namespace ChestSystem.UI
             chestPopupWindow.SetActive(false);
             PopupService.Instance.SetIsShowing = false;
         }
-        public void OnChestPopupButtonClicked()
-        {
-            isUnlocking = true;
-        }
         public void ChestUnlockPopup(ChestUnlockMsg msgObject)
         {
-            if(isUnlocking && currentChestSlotBeingUnlocked!=msgObject.chestSlotId)
-            {
-                Message msg = new(slotBusyTitle, slotBusyDescription);
-                ShowMessage(msg);
-                return;
-            }
             chestPopupTitle.text = msgObject.msgTitle;
             gemAmountToUnlock.text = msgObject.gemAmount.ToString();
             unlockImmediateBtn.GetComponent<Button>().onClick.AddListener(msgObject.UnlockImmediateAction); 
-            if (currentChestSlotBeingUnlocked==msgObject.chestSlotId && isUnlocking)
+            if (PopupService.Instance.CurrentUnlockingChestID==msgObject.chestSlotId)
             {
                 startTimerButton.GetComponentInChildren<TextMeshProUGUI>().text = closeButtonTxt;
             }
             else
             {
-                currentChestSlotBeingUnlocked = msgObject.chestSlotId;
                 startTimerButton.GetComponentInChildren<TextMeshProUGUI>().text = startTimerText;
                 startTimerButton.GetComponent<Button>().onClick.AddListener(msgObject.startUnlockAction);
             }
@@ -86,40 +83,5 @@ namespace ChestSystem.UI
         public GameObject GetUnlockImmediateBtn { get { return unlockImmediateBtn; } }
 
         public GameObject GetChestPopupWindow { get { return chestPopupWindow; } }
-
-        public void OnChestUnlocked()
-        {
-            isUnlocking = false;
-            currentChestSlotBeingUnlocked = 0;
-        }
-    }
-}
-public struct ChestUnlockMsg
-{
-    public string msgTitle;
-    public int gemAmount;
-    public int chestSlotId;
-    public UnityEngine.Events.UnityAction startUnlockAction;
-    public UnityEngine.Events.UnityAction UnlockImmediateAction;
-
-    public ChestUnlockMsg(string title,int gem, UnityEngine.Events.UnityAction startAction, UnityEngine.Events.UnityAction immediateAction, int slotId = 0)
-    {
-        msgTitle = title;
-        gemAmount = gem;
-        chestSlotId = slotId;
-        startUnlockAction = startAction;
-        UnlockImmediateAction = immediateAction;
-    }
-}
-
-public struct Message
-{
-    public string msgTitle;
-    public string msgDescription;
-
-    public Message(string title,string description)
-    {
-        msgTitle = title;
-        msgDescription = description;
     }
 }

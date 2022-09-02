@@ -1963,8 +1963,6 @@ MonoBehaviour:
     chestPrefab: {fileID: 6313935494834309373, guid: 7f47c0ca6c4139f45950c179bdc6c222, type: 3}
   chestSlotPrefab: {fileID: 5289847320003337862, guid: 55352c041135ecc4b9b74ad8cb914c31, type: 3}
   timeToSkipFor1Gem: 10
-  slotsFullMsgTitle: Oops!
-  slotsFulllMsgDescription: Slots are full.Try unlocking a few.
 --- !u!114 &1048658887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2232,8 +2230,25 @@ MonoBehaviour:
   msgPopUpWindow: {fileID: 359140863}
   msgPopUpTitle: {fileID: 1056462476}
   msgPopUpDescription: {fileID: 1515923376}
-  slotBusyTitle: Oops!
-  slotBusyDescription: Something is already being unlocked.Try later
+  msgPopups:
+  - popupType: 0
+    description: Slots are full.Try Unlocking a few Chests.
+    title: Oops!
+  - popupType: 1
+    description: Something else is being Unlocked.Try later.
+    title: Oops!
+  - popupType: 2
+    description: Not enough  gems.Try to earn some more
+    title: Oops!
+  - popupType: 3
+    description: Not enough  Coins.Try to earn some more
+    title: Oops!
+  - popupType: 4
+    description: Gem Storage Full!
+    title: Oops!
+  - popupType: 5
+    description: Coin Storage Full
+    title: Oops!
   chestPopupWindow: {fileID: 264510051}
   chestPopupTitle: {fileID: 1508059708}
   gemAmountToUnlock: {fileID: 1549567632}
@@ -2668,6 +2683,8 @@ MonoBehaviour:
   coinCountText: {fileID: 39495720}
   gemInitialCount: 100
   coinInitialCount: 1000
+  maxGems: 100000
+  maxCoins: 100000
 --- !u!1 &1455099781
 GameObject:
   m_ObjectHideFlags: 0
@@ -3305,7 +3322,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1134272102}
         m_TargetAssemblyTypeName: ChestSystem.UI.PopupManager, Assembly-CSharp
-        m_MethodName: OnPopupCloseClicked
+        m_MethodName: OnMsgPopupCloseClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

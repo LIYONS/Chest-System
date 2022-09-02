@@ -15,6 +15,7 @@ namespace ChestSystem.Chest
         private ChestController chestController;
         private ChestView chestView;
         private int chestSlotID;
+        private bool isBeingUnlocked;
 
         private void Start()
         {
@@ -31,26 +32,42 @@ namespace ChestSystem.Chest
             chestView = Instantiate(chestPrefab, transform).GetComponent<ChestView>();
             SetReferences();
         }
-        public void UnlockClicked(ChestUnlockMsg msgObject)
+
+        public void OnUnlockClicked(ChestUnlockMsg msgObject)
         {
             msgObject.chestSlotId = chestSlotID;
-            ChestService.Instance.ShowNewUnlockPopup(msgObject);
+            ChestService.Instance.GetChestSlotsController.ShowUnlock(msgObject);
         }
+
         private void SetReferences()
         {
             chestModel.SetChestController(chestController);
             chestController.SetChestView(chestView);
             chestView.SetChestController(chestController);
         }
+
         public void FreeSlot()
         {
+            
             if (chestView)
             {
                 Destroy(chestView.gameObject);
             }
             isEmpty = true;
             emptyText.SetActive(true);
+            UnlockingStatus = false;
         }
-        public int SetChestSlotID { set => chestSlotID = value; }
+
+        public int ChestSlotID 
+        {
+            get { return chestSlotID; }
+            set => chestSlotID = value; 
+        }
+
+        public bool UnlockingStatus
+        {
+            get { return isBeingUnlocked; }
+            set { isBeingUnlocked = value; }
+        }
     }   
 }

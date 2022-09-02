@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using ChestSystem.Chest.SO;
 using ChestSystem.Services;
 
 namespace ChestSystem.Chest
@@ -11,21 +10,20 @@ namespace ChestSystem.Chest
         [SerializeField] private List<Chests> chests;
         [SerializeField] private GameObject chestSlotPrefab;
         [SerializeField] private float timeToSkipFor1Gem;
-        [SerializeField] private string slotsFullMsgTitle ="Oops!";
-        [SerializeField] private string slotsFulllMsgDescription ="Chest Slots are full.Try Unlocking a few";
-        private List<ChestSlot> chestSlots = new();
 
+        private List<ChestSlot> chestSlots = new();
 
         private void Start()
         {
             for (int i = 0; i < numberOfSlots; i++)
             {
                 ChestSlotController chestSlotController=Instantiate(chestSlotPrefab, transform).GetComponent<ChestSlotController>();
-                chestSlotController.SetChestSlotID=chestSlotController.GetInstanceID();
+                chestSlotController.ChestSlotID=chestSlotController.GetInstanceID();
                 ChestSlot slot = new(chestSlotController.GetInstanceID(), chestSlotController);
                 chestSlots.Add(slot);
             }
         }
+
         public void SpawnChest(ChestConfig config)
         {
             for (int i = 0; i < chestSlots.Count; i++)
@@ -39,30 +37,30 @@ namespace ChestSystem.Chest
                     }
                     return;
                 }
-
             }
-            Message message = new(slotsFullMsgTitle,slotsFulllMsgDescription);
-            ChestService.Instance.ShowMessage(message);
+            ChestService.Instance.ShowMessage(MsgPopupType.SlotsFull);
         }
 
+        public void ShowUnlock(ChestUnlockMsg msgObject)
+        {
+            if(IsSlotBusy() && ChestService.Instance.CurrentUnlockingChestId!=msgObject.chestSlotId)
+            {
+                ChestService.Instance.ShowMessage(MsgPopupType.SlotsBusy);
+                return;
+            }
+            ChestService.Instance.ShowNewUnlockPopup(msgObject);
+        }
+        public bool IsSlotBusy()
+        {
+            for (int i = 0; i < chestSlots.Count; i++)
+            {
+                if (chestSlots[i].chestSlotController.UnlockingStatus == true)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public float GetTimeToSkipFor1Gem { get { return timeToSkipFor1Gem; } }
-        [System.Serializable]
-        public struct Chests
-        {
-            public ChestType chestType;
-            public GameObject chestPrefab;
-        }
-
-    }
-    public struct ChestSlot
-    {
-        public int chestSlotID;
-        public ChestSlotController chestSlotController;
-
-        public ChestSlot(int id, ChestSlotController controller)
-        {
-            this.chestSlotID = id;
-            this.chestSlotController = controller;
-        }
     }
 }

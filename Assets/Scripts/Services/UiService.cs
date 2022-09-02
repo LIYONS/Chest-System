@@ -9,14 +9,23 @@ namespace ChestSystem.UI
 
         public UiManager GetUiManager { get { return uiManager; } }
 
-        public void AddGemCount(int amount)
+        public bool AddCoinCount(int amount)
         {
-            uiManager.AddGemCount(amount);
+            return uiManager.AddCoinCount(amount);
         }
 
-        public void AddCoinCount(int amount)
+        public bool AddGemCount(int amount)
         {
-            uiManager.AddCoinCount(amount);
+            return uiManager.AddGemCount(amount);
+        }
+        public bool ReduceGemCount(int amount)
+        {
+            return uiManager.ReduceGemCount(amount);
+        }
+
+        public bool ReduceCoinCount(int amount)
+        {
+            return uiManager.ReduceCoinCount(amount);
         }
     }
 }

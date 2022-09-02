@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using ChestSystem.Services;
+using System;
 
 namespace ChestSystem.UI
 {
@@ -11,6 +12,8 @@ namespace ChestSystem.UI
         [SerializeField] private TextMeshProUGUI coinCountText;
         [SerializeField] private int gemInitialCount;
         [SerializeField] private int coinInitialCount;
+        [SerializeField] private int maxGems;
+        [SerializeField] private int maxCoins;
         private int gemCount;
         private int coinCount;
 
@@ -19,33 +22,69 @@ namespace ChestSystem.UI
         private void Start()
         {
             AddGemCount(gemInitialCount);
-            AddCoinCount(coinInitialCount);
-            
-        }
-        public void AddGemCount(int amount)
-        {
-            gemCount += amount;
-            if (gemCountText)
-            {
-                gemCountText.text = gemCount.ToString();
-            }
+            AddCoinCount(coinInitialCount);  
         }
 
-        public void AddCoinCount(int amount)
+        public bool AddCoinCount(int amount)
         {
-            coinCount += amount;
-            if (coinCountText)
+            if (coinCount + amount <= maxCoins)
             {
-                coinCountText.text = coinCount.ToString();
+                coinCount += amount;
+                if (coinCountText)
+                {
+                    coinCountText.text = coinCount.ToString();
+                }
+                return true;
             }
+            return false;
         }
 
+        public bool AddGemCount(int amount)
+        {
+            if(gemCount+amount<=maxGems)
+            {
+                gemCount += amount;
+                if (gemCountText)
+                {
+                    gemCountText.text = gemCount.ToString();
+                }
+                return true;
+            }
+            return false;
+        }
+        public bool ReduceGemCount(int amount)
+        {
+            if(gemCount-amount>=0)
+            {
+                gemCount -= amount;
+                if (gemCountText)
+                {
+                    gemCountText.text = gemCount.ToString();
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public bool ReduceCoinCount(int amount)
+        {
+            if(coinCount-amount>0)
+            {
+                coinCount -= amount;
+                if (coinCountText)
+                {
+                    coinCountText.text = coinCount.ToString();
+                }
+                return true;
+            }
+            return false;
+        }
         public void OnCreateButtonPressed()
         {
             ChestService chestService = ChestService.Instance;
             if(chestService)
             {
-                chestService.SpawnRandomChest();
+                chestService.SpawnChest();
             }
         }
 

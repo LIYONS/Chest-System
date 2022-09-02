@@ -46,12 +46,12 @@ namespace ChestSystem.Chest.MVC
             Message msg = new(chestView.GetSpawnPopupTitle, $"You have acquired a new {chestModel.GetChestObject.name} chest.\n Coin Range {chestModel.GetChestObject.minCoins} - {chestModel.GetChestObject.maxCoins} \n Gems Range {chestModel.GetChestObject.minGems} - {chestModel.GetChestObject.maxGems} ");
             ChestService.Instance.ShowMessage(msg);
         }
-        public void UnlockClicked(string title)
+        public void OnUnlockClicked(string title)
         {
             if(chestSlotController)
             {
                 ChestUnlockMsg msgObject = new(title,gemToUnlock,StartUnlockingAction,UnlockImmediateAction);
-                chestSlotController.UnlockClicked(msgObject);
+                chestSlotController.OnUnlockClicked(msgObject);
             }
         }
 
@@ -59,15 +59,22 @@ namespace ChestSystem.Chest.MVC
         {
             if(!isUnlocked)
             {
-                Unlock();
+                chestSlotController.UnlockingStatus = true;
+                bool result=ChestService.Instance.ReduceGemCount(gemToUnlock);
+                if(result)
+                {
+                    Unlock();
+                }
             }
         }
-
 
         public void StartUnlockingChest()
         {
             startCountDown = true;
+            chestSlotController.UnlockingStatus = true;
+            ChestService.Instance.CurrentUnlockingChestId = chestSlotController.ChestSlotID;
         }
+
         private void CheckUnlock()
         {
             unlockTimer -= Time.deltaTime;
@@ -86,7 +93,6 @@ namespace ChestSystem.Chest.MVC
             }
         }
 
-        
         public void Unlock()
         {
             if (!isUnlocked)
@@ -96,40 +102,30 @@ namespace ChestSystem.Chest.MVC
                 int gemAquired = UnityEngine.Random.Range(chestObject.minGems, chestObject.maxGems);
                 int coinAquired = UnityEngine.Random.Range(chestObject.minCoins, chestObject.maxCoins);
                 string description = $"You have acquired\n {gemAquired} gems \n {coinAquired} coins";
-                ChestUnlockedMsg msg = new(chestView.GetChestUnlockedTitle, description, gemAquired, coinAquired);
+                ChestUnlockedMsg msg = new(chestView.GetChestUnlockedTitle, description, coinAquired,gemAquired);
+                ChestService.Instance.CurrentUnlockingChestId = 0;
                 ChestService.Instance.OnChestUnlocked(msg); 
                 chestSlotController.FreeSlot();
             }
         }
+
         private string TimeToString(float value)
         {
             TimeSpan time = TimeSpan.FromSeconds(value);
             return time.ToString(@"hh\:mm\:ss");
         }
+
         public ChestModel GetChestModel { get { return chestModel; } }
+
         public ChestController(ChestModel _model)
         {
             chestModel = _model;
         }
+
         public void SetChestView(ChestView _view)
         {
             chestView = _view;
         }
     }
     
-}
-public struct ChestUnlockedMsg
-{
-    public string title;
-    public string description;
-    public int coins;
-    public int gems;
-
-    public ChestUnlockedMsg(string title, string description, int coins, int gems)
-    {
-        this.title = title;
-        this.description = description;
-        this.coins = coins;
-        this.gems = gems;
-    }
 }
