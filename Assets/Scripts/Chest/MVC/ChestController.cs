@@ -29,6 +29,7 @@ namespace ChestSystem.Chest.MVC
             unlockTimer = unlockDuration;
             chestView.SetTimerText(TimeToString(unlockDuration));
             gemToUnlock = (int) (unlockDuration / chestSlotsController.GetTimeToSkipFor1Gem);
+            gemToUnlock= Mathf.Clamp(gemToUnlock, 1, int.MaxValue);
             StartUnlockingAction = StartUnlockingChest;
             UnlockImmediateAction = UnlockImmediate;
         }
@@ -94,6 +95,7 @@ namespace ChestSystem.Chest.MVC
                 if ((int)unlockDuration % (int)ChestService.Instance.GetTimeToSkipFor1Gem == 0f)
                 {
                     gemToUnlock--;
+                    gemToUnlock=Mathf.Clamp(gemToUnlock, 1, int.MaxValue);
                 }
             }
             if (unlockDuration <= 0f)
